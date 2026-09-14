@@ -1,0 +1,100 @@
+- id: T-001
+  title: Bind 8080 bentrok dengan API live lain
+  severity: Medium
+  status: Closed
+  opened: "2026-09-15"
+  closed: "2026-09-15"
+  timeline: ["compose up gagal bind 0.0.0.0:8080", "ss: dipakai live lifeos", "Override port via !override (merge tak cukup)", "Stack Up di 18093/18094/13309"]
+  diagnosis: Port host bentrok (matrix #2)
+  resolution: Override file dengan !override + port alternatif
+  prevention: Cek ss sebelum up; !override bukan merge untuk ports
+- id: T-002
+  title: Backup/restore roundtrip MySQL
+  severity: High
+  status: Closed
+  opened: "2026-09-15"
+  closed: "2026-09-15"
+  timeline: ["mysqldump lokal tak ada (pakai shim docker exec)", "Env MYSQL_PWD tak terus ke docker exec (2x gagal)", "Roundtrip: 5 employees + 3 users kembali"]
+  diagnosis: Tooling + env forwarding (matrix backup/restore)
+  resolution: Shim teruskan -e MYSQL_PWD; skrip lolos roundtrip
+  prevention: Dokumentasikan kebutuhan mysqldump; catat trik -e
+- id: T-003
+  title: Seed ganda error 1062
+  severity: Low
+  status: Closed
+  opened: "2026-09-15"
+  closed: "2026-09-15"
+  timeline: ["SOURCE seed.sql 2x", "Duplicate admin@shiftbase.local", "COUNT users = 3, skip"]
+  diagnosis: Seed tak idempoten (matrix #7)
+  resolution: Tak perlu aksi
+  prevention: Cek COUNT sebelum seed
+- id: T-004
+  title: Distroless tanpa shell saat debug
+  severity: Low
+  status: Closed
+  opened: "2026-09-15"
+  closed: "2026-09-15"
+  timeline: ["docker exec api sh gagal", "Alih ke logs + adminer"]
+  diagnosis: Citra distroless by design (matrix #5)
+  resolution: Prosedur debug tanpa exec
+  prevention: Tulis di runbook
+- id: T-005
+  title: Check-in ganda 409 membingungkan user
+  severity: Low
+  status: Open
+  opened: "2026-09-15"
+  closed: ""
+  timeline: ["User klik 2x", "attendance_duplicate", "UI sudah terjemahkan ke kalimat"]
+  diagnosis: Double-submit (matrix #10)
+  resolution: ""
+  prevention: Disable tombol saat request (usulan ke web)
+- id: T-006
+  title: 401 massal setelah rotasi secret
+  severity: Medium
+  status: Closed
+  opened: "2026-09-14"
+  closed: "2026-09-14"
+  timeline: ["JWT_SECRET baru di-compose", "Semua token hangus", "Login ulang massal"]
+  diagnosis: By design (matrix #4)
+  resolution: Komunikasi + login ulang
+  prevention: Umumkan rotasi sebelum deploy
+- id: T-007
+  title: Import CSV header salah
+  severity: Low
+  status: Closed
+  opened: "2026-09-13"
+  closed: "2026-09-13"
+  timeline: ["User pakai header kapital", "400 + pesan header harus", "Perbaiki header, sukses"]
+  diagnosis: Validasi ketat by design (matrix #8)
+  resolution: Template CSV di FAQ
+  prevention: Sediakan file contoh
+- id: T-008
+  title: Overtime 0 untuk shift 8 jam pas
+  severity: Low
+  status: Closed
+  opened: "2026-09-12"
+  closed: "2026-09-12"
+  timeline: ["Lapor: lembur tak muncul", "Cek: durasi tepat 8 jam", "Rumus GREATEST(jam-8,0) = 0 benar"]
+  diagnosis: Ekspektasi vs rumus (matrix #12)
+  resolution: Edukasi definisi >8 jam
+  prevention: Tulis rumus di FAQ
+- id: T-009
+  title: MySQL container tak healthy
+  severity: Medium
+  status: Closed
+  opened: "2026-09-11"
+  closed: "2026-09-11"
+  timeline: ["api restart loop", "mysql starting (init 20 dtk)", "depends_on healthy menahan api"]
+  diagnosis: Start order (matrix #1)
+  resolution: Tunggu healthy; healthcheck sudah benar
+  prevention: Jangan bypass depends_on
+- id: T-010
+  title: Data hilang setelah compose down -v
+  severity: High
+  status: Closed
+  opened: "2026-09-10"
+  closed: "2026-09-10"
+  timeline: ["down -v hapus volume", "Restore dari backup harian", "Data kembali"]
+  diagnosis: Flag -v destruktif (matrix #14)
+  resolution: Restore + edukasi down vs down -v
+  prevention: Backup sebelum down -v; alias aman
