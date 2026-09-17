@@ -1,0 +1,12 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash -n scripts/*.sh
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.13" }
+      - run: git ls-files '*.py' | xargs python -m py_compile
+      - run: pip install -q pyyaml && python -c "import yaml; yaml.safe_load(open('tickets.yaml'))"
