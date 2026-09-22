@@ -1,5 +1,9 @@
 # shiftbase-ops
 
+[![ci](https://github.com/RakhaYandra/shiftbase-ops/actions/workflows/ci.yml/badge.svg)](https://github.com/RakhaYandra/shiftbase-ops/actions)
+
+> Ekosistem: [api](https://github.com/RakhaYandra/shiftbase) · [web](https://github.com/RakhaYandra/shiftbase-web) · [docs](https://github.com/RakhaYandra/shiftbase-docs/releases) · [qa](https://github.com/RakhaYandra/shiftbase-qa) · [data](https://github.com/RakhaYandra/shiftbase-data) · [ops](https://github.com/RakhaYandra/shiftbase-ops)
+
 Operasional [Shiftbase](https://github.com/RakhaYandra/shiftbase): runbook
 compose, skrip backup/restore MySQL teruji roundtrip, troubleshooting matrix
 15 entri terverifikasi (termasuk port bentrok asli + distroless tanpa shell),
